@@ -1,7 +1,10 @@
 // partie Metier du PlayList (back)
 
 // list of playlist
+//const PlayList = require('./Playlist');
 var list = [];
+
+var idPlayList = 0;
 
 //Constructor All attributes
 function PlayList(idPlayList, nomPlayList, nomCreateur, caractere, listMorceau, listContributeur) {
@@ -32,16 +35,19 @@ function PlayList(playlist) {
 
 //ajouter PlayList
 var ajouterPlayList = function(playlist) {
-    playlist.idPlaylist = idPlaylist;
-    list[idPlaylist] = new PlayList(playlist);
-    idPlaylist++;
+    playlist.idPlaylist = idPlayList;
+    list[idPlayList] = new PlayList(playlist);
+    idPlayList++;
+    return list[idPlayList-1];
 }
 
 
 // Get a PlayList
 var getPlayList = function (idPlaylist) {
     if (typeof list[idPlaylist] == 'undefined') return {};
-    else return list[idPlaylist];
+    else {
+        this.list[idPlaylist].incrementerNbClic(); //chaque fois getplaylist, nbClic++
+        return list[idPlaylist];}
 }
 
 //lister les PlayLists
@@ -49,6 +55,14 @@ var listerPlayList = function () {
     return Object.values(list);
 }
 
+
+//incrementer nbClic
+var incrementerNbClic = function (){
+    this.nbClic++;
+}
+
+
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
+exports.incrementerNbClic =incrementerNbClic;
