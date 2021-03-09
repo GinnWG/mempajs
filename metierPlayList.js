@@ -4,17 +4,18 @@
 //const PlayList = require('./Playlist');
 var list = [];
 
-var idPlayList = 0;
+//var listMorceau;
+//var listContributeur;
+
 
 //Constructor All attributes
-function PlayList(idPlayList, nomPlayList, nomCreateur, caractere, listMorceau, listContributeur) {
-    this.idPlaylist = idPlayList;
+function PlayList(nomPlayList, nomCreateur, caractere) {
     this.nomPlayList = nomPlayList;
     this.nomCreateur = nomCreateur;
     this.nbClic = 0;
     this.caractere = caractere;
-    this.listMorceau = listMorceau;
-    this.listContributeur = listContributeur;
+    this.listMorceau = [];
+    this.listContributeur = [];
     this.datemisajour = new Date();
 }
 
@@ -34,11 +35,11 @@ function PlayList(playlist) {
 //Methodes Metier
 
 //ajouter PlayList
-var ajouterPlayList = function(playlist) {
-    playlist.idPlaylist = idPlayList;
-    list[idPlayList] = new PlayList(playlist);
-    idPlayList++;
-    return list[idPlayList-1];
+var ajouterPlayList = function(nomPlayList, nomCreateur, caractere) {
+    const idPlayList = this.list.length;
+    var playlist = new PlayList(nomPlayList, nomCreateur, caractere);
+    this.list[idPlayList] = playlist;
+    return idPlayList;
 }
 
 
@@ -47,7 +48,8 @@ var getPlayList = function (idPlaylist) {
     if (typeof list[idPlaylist] == 'undefined') return {};
     else {
         this.list[idPlaylist].incrementerNbClic(); //chaque fois getplaylist, nbClic++
-        return list[idPlaylist];}
+        return list[idPlaylist];
+    }
 }
 
 //lister les PlayLists
@@ -61,8 +63,15 @@ var incrementerNbClic = function (){
     this.nbClic++;
 }
 
+//
+var ajouterMorceau = function (titre, artiste){
+    this.listMorceau.tire = titre;
+    this.listMorceau.artist = artiste
+
+}
 
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
-exports.incrementerNbClic =incrementerNbClic;
+exports.incrementerNbClic = incrementerNbClic;
+exports.ajouterMorceau = ajouterMorceau;
