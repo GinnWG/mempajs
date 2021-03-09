@@ -2,7 +2,6 @@
 
 // list of playlist
 var list = [];
-var idPlaylist = 0;
 
 //Constructor All attributes
 function PlayList(idPlayList, nomPlayList, nomCreateur, caractere, listMorceau, listContributeur) {
