@@ -1,45 +1,54 @@
 var express = require('express');
 var bodyparser = require('body-parser');
-var metier = require('./metierPlayList');
-
+var metierPlayList = require('./metierPlayList');
+var url = require("url")
+var metierMorceau = require('./metierMorceau');
+var metieruser = require('./metierUser');
 
 var app = express();
 app.use(bodyparser.json());
 
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); res.header("Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"); res.header("Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, OPTIONS"); next();
+app.all('*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS");
+    next();
 });
 
 
 //ajouter client
-app.post('/api/playlists', function(req,res){
-   //recuperer parameter
+app.post('/api/playlists', function (req, res) {
+    //recuperer parameter
     var playlist = req.body;
 
     //metier
-    var objres = metier.ajouterPlayList(playlist);
+    var objres = metierPlayList.ajouterPlayList(playlist);
+    console.log(objres);
 
     //forger
-    if ((typeof objres === 'undefined') || (typeof objres === {})){
-        res.status(400).json({});}
-    else res.status(201).json(objres);
+    if ((typeof objres === 'undefined') || (typeof objres === {})) {
+        res.status(400).json({});
+    } else res.status(201).json(objres);
 });
 
 //lister les clients
-app.get('/api/playlists', function(req,res){
-    res.status(200).json(metier.listerPlayList());
+app.get('/api/playlists', function (req, res) {
+    res.status(200).json(metierPlayList.listerPlayList());
 });
 
+
 //Rechercher
-app.get('/api/playlists/:idPlayList', function(req,res){
+app.get('/api/playlists/:idPlayList', function (req, res) {
 
     //recuperer parameter
     var idPlayList = req.params.idPlaylist;
-
+                                                 // var idPlayList = req.params.idPlaylist;
+    var url_parts = url.parse(req.url, true);
+    var type = url_parts.params.idPlaylist;
     //metier
-    var objres = metier.getPlayList(idPlayList);
+    var objres = metierPlayList.getPlayList(idPlayList);
 
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
@@ -50,14 +59,28 @@ app.get('/api/playlists/:idPlayList', function(req,res){
 
 /*
 app.get('/',function(req,res){
-    var obj = metier.ajouterPlayList({"idPlaylist":0,"nomPlayList":"testpl1","nomCreateur":"user1","caractere":"Pop","listMorceau":"music1","listContributeur":"user1"});
-    var obj2  = metier.getPlayList(0);
-    var obj3 = metier.listerPlayList();
+    var obj = metierPlayList.ajouterPlayList({"idPlaylist":0,"nomPlayList":"testpl1","nomCreateur":"user1","caractere":"Pop","listMorceau":"music1","listContributeur":"user1"});
+    var obj2  = metierPlayList.getPlayList(0);
+    var obj3 = metierPlayList.listerPlayList();
     res.send(obj3);
    // res.json(obj3)
 });
 */
 
-app.listen(3000,function (){
+
+app.get('/', function (req, res) {
+    var obj = metierPlayList.ajouterPlayList({
+        "nomPlayList": "testpl1",
+        "nomCreateur": "user1",
+        "listMorceau": "music1",
+    });
+    var obj2 = metierPlayList.getPlayList(1);
+    var obj3 = metierPlayList.listerPlayList();
+    res.send(obj3);
+    res.json(obj3)
+});
+
+
+app.listen(3000, function () {
     console.log('Server running...');
 });

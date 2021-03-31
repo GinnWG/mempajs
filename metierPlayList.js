@@ -2,23 +2,25 @@
 
 // list of playlist
 //const PlayList = require('./Playlist');
-var list = [];
+const list = [];
 
-//var listMorceau;
-//var listContributeur;
+var listC = [];
+var listCaractere = [];
 
-
-//Constructor All attributes
-function PlayList(nomPlayList, nomCreateur, caractere) {
+//Constructor pour la version 1, nomPlayliste, nomCreateur, listMorceau => "creer une playliste et proposer des titres"
+function PlayList(nomPlayList, nomCreateur, listMorceau, idPlaylist) {
+    this.idPlaylist = idPlaylist;
     this.nomPlayList = nomPlayList;
     this.nomCreateur = nomCreateur;
     this.nbClic = 0;
-    this.caractere = caractere;
-    this.listMorceau = [];
-    this.listContributeur = [];
+    this.listMorceau = listMorceau;
+    this.listContributeur = "";
+    this.caractere = "";
     this.datemisajour = new Date();
 }
 
+//Methodes Metier
+/*
 //Constructor with structure
 function PlayList(playlist) {
     this.idPlaylist = playlist.idPlaylist;
@@ -30,24 +32,22 @@ function PlayList(playlist) {
     this.listContributeur = playlist.listContributeur;
     this.datemisajour = new Date();
 }
+*/
 
+//ajouter PlayList version 1
+var ajouterPlayList = function (playlist) {
+    const idPlayList = list.length;
+    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.listMorceau,idPlayList);
+    return list[idPlayList];
 
-//Methodes Metier
-
-//ajouter PlayList
-var ajouterPlayList = function(nomPlayList, nomCreateur, caractere) {
-    const idPlayList = this.list.length;
-    var playlist = new PlayList(nomPlayList, nomCreateur, caractere);
-    this.list[idPlayList] = playlist;
-    return idPlayList;
 }
 
 
 // Get a PlayList
 var getPlayList = function (idPlaylist) {
-    if (typeof list[idPlaylist] == 'undefined') return {};
+    if (typeof list[idPlaylist] === 'undefined') return {};
     else {
-        this.list[idPlaylist].incrementerNbClic(); //chaque fois getplaylist, nbClic++
+        list[idPlaylist].incrementerNbClic(); //chaque fois getplaylist, nbClic++
         return list[idPlaylist];
     }
 }
@@ -59,19 +59,15 @@ var listerPlayList = function () {
 
 
 //incrementer nbClic
-var incrementerNbClic = function (){
+var incrementerNbClic = function () {
     this.nbClic++;
 }
 
 //
-var ajouterMorceau = function (titre, artiste){
-    this.listMorceau.tire = titre;
-    this.listMorceau.artist = artiste
 
-}
 
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
 exports.incrementerNbClic = incrementerNbClic;
-exports.ajouterMorceau = ajouterMorceau;
+
