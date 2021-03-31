@@ -5,17 +5,17 @@
 const list = [];
 
 var listC = [];
-var listCaractere = [];
+
 
 //Constructor pour la version 1, nomPlayliste, nomCreateur, listMorceau => "creer une playliste et proposer des titres"
-function PlayList(nomPlayList, nomCreateur, listMorceau, idPlaylist) {
-    this.idPlaylist = idPlaylist;
+function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
+    this.idPlayList = idPlayList;
     this.nomPlayList = nomPlayList;
     this.nomCreateur = nomCreateur;
     this.nbClic = 0;
-    this.listMorceau = listMorceau;
+    this.listMorceau = "";
     this.listContributeur = "";
-    this.caractere = "";
+    this.caractere = caractere;
     this.datemisajour = new Date();
 }
 
@@ -37,18 +37,22 @@ function PlayList(playlist) {
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
     const idPlayList = list.length;
-    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.listMorceau,idPlayList);
+    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
     return list[idPlayList];
 
 }
 
+//incrementer nbClic
+const incrementerNbClic = function (playlist) {
+    playlist.nbClic++;
+}
 
 // Get a PlayList
-var getPlayList = function (idPlaylist) {
-    if (typeof list[idPlaylist] === 'undefined') return {};
+var getPlayList = function (idPlayList) {
+    if (typeof list[idPlayList] === 'undefined') return {};
     else {
-        list[idPlaylist].incrementerNbClic(); //chaque fois getplaylist, nbClic++
-        return list[idPlaylist];
+        incrementerNbClic(list[idPlayList]); //chaque fois getplaylist, nbClic++
+        return list[idPlayList];
     }
 }
 
@@ -57,14 +61,11 @@ var listerPlayList = function () {
     return Object.values(list);
 }
 
+//find by style and nomPlayList
 
-//incrementer nbClic
-var incrementerNbClic = function () {
-    this.nbClic++;
+var findPlayList = function (nomPlaylist,style){
+    if
 }
-
-//
-
 
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;

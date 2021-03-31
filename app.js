@@ -43,10 +43,8 @@ app.get('/api/playlists', function (req, res) {
 app.get('/api/playlists/:idPlayList', function (req, res) {
 
     //recuperer parameter
-    var idPlayList = req.params.idPlaylist;
-                                                 // var idPlayList = req.params.idPlaylist;
-    var url_parts = url.parse(req.url, true);
-    var type = url_parts.params.idPlaylist;
+    var idPlayList = req.params.idPlayList;
+
     //metier
     var objres = metierPlayList.getPlayList(idPlayList);
 
@@ -67,7 +65,7 @@ app.get('/',function(req,res){
 });
 */
 
-
+/*
 app.get('/', function (req, res) {
     var obj = metierPlayList.ajouterPlayList({
         "nomPlayList": "testpl1",
@@ -79,8 +77,7 @@ app.get('/', function (req, res) {
     res.send(obj3);
     res.json(obj3)
 });
-
-
+*/
 app.listen(3000, function () {
     console.log('Server running...');
 });
