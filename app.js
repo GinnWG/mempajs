@@ -39,6 +39,14 @@ app.get('/api/playlists', function (req, res) {
 });
 
 
+//search palyslist with filters
+app.get('/api/playlists/search', function (req, res) {
+    //filters
+    var nomPlayList = req.query.nomPlayList;
+    var caractere = req.query.caractere;
+    res.status(200).json(metierPlayList.searchPlayList(nomPlayList, caractere));
+});
+
 //Rechercher
 app.get('/api/playlists/:idPlayList', function (req, res) {
 

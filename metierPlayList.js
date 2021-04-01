@@ -63,12 +63,24 @@ var listerPlayList = function () {
 
 //find by style and nomPlayList
 
-var findPlayList = function (nomPlaylist,style){
-    if
+var searchPlayList = function (nomPlaylist, style) {
+    //copy list to prevent modifications on list
+    var resPlayLists = [...list];
+    if (nomPlaylist) {
+        resPlayLists = resPlayLists.filter(playList => {
+            return playList.nomPlayList === nomPlaylist
+        })
+    }
+    if (style) {
+        resPlayLists = resPlayLists.filter(playList => {
+            return playList.caractere === style
+        })
+    }
+    return resPlayLists;
 }
 
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
 exports.incrementerNbClic = incrementerNbClic;
-
+exports.searchPlayList = searchPlayList;
