@@ -66,17 +66,33 @@ var listerPlayList = function () {
 var searchPlayList = function (nomPlaylist, style) {
     //copy list to prevent modifications on list
     var resPlayLists = [...list];
+    if (nomPlaylist){
+        if(style){
+            resPlayLists = resPlayLists.filter(playList => {
+                if(playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.caractere.indexOf(style) !== -1) {
+                    return true
+                }
+
+            })
+        }
+    }
     if (nomPlaylist) {
         resPlayLists = resPlayLists.filter(playList => {
-            return playList.nomPlayList === nomPlaylist
+            if(playList.nomPlayList.indexOf(nomPlaylist) !== -1) {
+                return true
+            }
         })
     }
     if (style) {
         resPlayLists = resPlayLists.filter(playList => {
-            return playList.caractere === style
+            if(playList.caractere.indexOf(style) !== -1) {
+                return true
+            }
         })
     }
     return resPlayLists;
+
+
 }
 
 exports.ajouterPlayList = ajouterPlayList;
