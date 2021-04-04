@@ -83,6 +83,11 @@ app.post('/api/morceau', function (req, res) {
     } else res.status(201).json(objres);
 });
 
+//lister les clients Morceau
+app.get('/api/morceau', function (req, res) {
+    res.status(200).json(metierMorceau.listerMorceau());
+});
+
 //search Morceau with filters
 app.get('/api/playlists/searchmorceau', function (req, res) {
     //filters
@@ -90,9 +95,6 @@ app.get('/api/playlists/searchmorceau', function (req, res) {
     var artiste = req.query.artiste;
     res.status(200).json(metierMorceau.searchMorceau(titre, artiste));
 });
-
-
-
 
 /*
 app.get('/',function(req,res){
