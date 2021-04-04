@@ -62,7 +62,6 @@ var listerPlayList = function () {
 }
 
 //find by style and nomPlayList
-
 var searchPlayList = function (nomPlaylist, style) {
     //copy list to prevent modifications on list
     var resPlayLists = [...list];

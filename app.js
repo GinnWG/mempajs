@@ -18,7 +18,9 @@ app.all('*', function (req, res, next) {
 });
 
 
-//ajouter client
+//------- Metier Playlist
+
+//ajouter client playlist
 app.post('/api/playlists', function (req, res) {
     //recuperer parameter
     var playlist = req.body;
@@ -33,13 +35,13 @@ app.post('/api/playlists', function (req, res) {
     } else res.status(201).json(objres);
 });
 
-//lister les clients
+//lister les clients playlist
 app.get('/api/playlists', function (req, res) {
     res.status(200).json(metierPlayList.listerPlayList());
 });
 
 
-//search palyslist with filters
+//search playlist with filters
 app.get('/api/playlists/search', function (req, res) {
     //filters
     var nomPlayList = req.query.nomPlayList;
@@ -47,7 +49,7 @@ app.get('/api/playlists/search', function (req, res) {
     res.status(200).json(metierPlayList.searchPlayList(nomPlayList, caractere));
 });
 
-//Rechercher
+//Rechercher playlist
 app.get('/api/playlists/:idPlayList', function (req, res) {
 
     //recuperer parameter
@@ -60,6 +62,33 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});
     else res.status(200).json(objres);
+});
+
+
+
+//------- Metier Morceau
+
+//ajouter client Morceau
+app.post('/api/morceau', function (req, res) {
+    //recuperer parameter
+    var morceau = req.body;
+
+    //metier
+    var objres = metierMorceau.ajouterMorceau(morceau);
+    console.log(objres);
+
+    //forger
+    if ((typeof objres === 'undefined') || (typeof objres === {})) {
+        res.status(400).json({});
+    } else res.status(201).json(objres);
+});
+
+//search Morceau with filters
+app.get('/api/playlists/searchmorceau', function (req, res) {
+    //filters
+    var titre = req.query.titre;
+    var artiste = req.query.artiste;
+    res.status(200).json(metierMorceau.searchMorceau(titre, artiste));
 });
 
 
