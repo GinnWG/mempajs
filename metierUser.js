@@ -18,10 +18,10 @@ var ajouterUser = function (user) {
 }
 
 // Get an User by name
-var getUser = function (monUser) {
-    if (typeof listU[monUser] === 'undefined') return {};
+var getUser = function (nomUser) {
+    if (typeof listU[nomUser] === 'undefined') return {};
     else {
-        return listU[monUser];
+        return listU[nomUser];
     }
 }
 

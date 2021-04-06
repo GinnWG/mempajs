@@ -11,7 +11,7 @@ var listC = [];
 function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
     this.idPlayList = idPlayList;
     this.nomPlayList = nomPlayList;
-    this.nomCreateur = nomCreateur;
+    this.nomUser = nomCreateur;
     this.nbClic = 0;
     this.listMorceau = "";
     this.listContributeur = "";
@@ -37,7 +37,7 @@ function PlayList(playlist) {
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
     const idPlayList = list.length;
-    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
+    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomUser, playlist.caractere, idPlayList);
     return list[idPlayList];
 
 }
