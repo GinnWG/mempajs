@@ -4,20 +4,33 @@
 
 var listU = [];
 
-function User (nomUser){
+function User (nomUser,idUser){
     this.nomUser = nomUser;
+    this.idUser = idUser;
 }
 
-function User (user){
-    this.nomUser = user.nomUser;
-}
 
-//ajouter un Morceau de music dans la liste Morceau
-var ajouterUser = function(user)  {
-    const idUser = this.listU.length;
-    this.listU[idUser] = new User(user);
+//ajouter an User
+var ajouterUser = function (user) {
+    const idUser = listU.length;
+    listU[idUser] = new User(user.nomUser,idUser);
     return listU[idUser];
-
 }
+
+// Get an User by name
+var getUser = function (monUser) {
+    if (typeof listU[monUser] === 'undefined') return {};
+    else {
+        return listU[monUser];
+    }
+}
+
+//lister Users
+var listerUser = function () {
+    return Object.values(listU);
+}
+
 
 exports.ajouterUser = ajouterUser;
+exports.getUser = getUser;
+exports.listerUser = listerUser;

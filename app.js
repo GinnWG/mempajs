@@ -3,7 +3,7 @@ var bodyparser = require('body-parser');
 var metierPlayList = require('./metierPlayList');
 var url = require("url")
 var metierMorceau = require('./metierMorceau');
-var metieruser = require('./metierUser');
+var metierUser = require('./metierUser');
 
 var app = express();
 app.use(bodyparser.json());
@@ -18,7 +18,7 @@ app.all('*', function (req, res, next) {
 });
 
 
-//------- Metier Playlist
+//------- Metier Playlist ----------
 
 //ajouter client playlist
 app.post('/api/playlists', function (req, res) {
@@ -66,7 +66,7 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
 
 
 
-//------- Metier Morceau
+//------- Metier Morceau -----------
 
 //ajouter client Morceau
 app.post('/api/morceau', function (req, res) {
@@ -95,6 +95,31 @@ app.get('/api/playlists/searchmorceau', function (req, res) {
     var artiste = req.query.artiste;
     res.status(200).json(metierMorceau.searchMorceau(titre, artiste));
 });
+
+
+
+//---------- Metier User ----------
+
+//lister les clients Users
+app.get('/api/user', function (req, res) {
+    res.status(200).json(metierUser.listerUser());
+});
+
+//ajouter les clients an User
+app.post('/api/user', function (req, res) {
+    //recuperer parameter
+    var user = req.body;
+
+    //metier
+    var objres = metierUser.ajouterUser(user);
+    console.log(objres);
+
+    //forger
+    if ((typeof objres === 'undefined') || (typeof objres === {})) {
+        res.status(400).json({});
+    } else res.status(201).json(objres);
+});
+
 
 /*
 app.get('/',function(req,res){

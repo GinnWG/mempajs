@@ -1,5 +1,5 @@
 // partie Metier du PlayList (back)
-var listM = [];
+const listM = [];
 // list of playlist
 
 
@@ -19,8 +19,8 @@ function Morceau (morceau){
 
 //ajouter un Morceau de music dans la liste Morceau
 var ajouterMorceau = function(morceau)  {
-    const idMorceau = this.listM.length;
-    this.listM[idMorceau] = new Morceau(morceau.titre, morceau.artiste, idMorceau);
+    const idMorceau = listM.length;
+    listM[idMorceau] = new Morceau(morceau.titre, morceau.artiste, idMorceau);
     return listM[idMorceau];
 
 }
