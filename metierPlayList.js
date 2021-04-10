@@ -19,27 +19,11 @@ function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
     this.datemisajour = new Date();
 }
 
-//Methodes Metier
-/*
-//Constructor with structure
-function PlayList(playlist) {
-    this.idPlaylist = playlist.idPlaylist;
-    this.nomPlayList = playlist.nomPlayList;
-    this.nomCreateur = playlist.nomCreateur;
-    this.nbClic = 0;
-    this.caractere = playlist.caractere;
-    this.listMorceau = playlist.listMorceau;
-    this.listContributeur = playlist.listContributeur;
-    this.datemisajour = new Date();
-}
-*/
-
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
     const idPlayList = list.length;
     list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
     return list[idPlayList];
-
 }
 
 //incrementer nbClic
@@ -53,6 +37,14 @@ var getPlayList = function (idPlayList) {
     else {
         incrementerNbClic(list[idPlayList]); //chaque fois getplaylist, nbClic++
         return list[idPlayList];
+    }
+}
+//Get PlayList by nomCreateur ---- Version 4
+var getPlayListbyUsername = function (nomCreateur) {
+    if (typeof list[nomCreateur] === 'undefined') return {};
+    else {
+     //   incrementerNbClic(list[nomCreateur]); //chaque fois getplaylist, nbClic++
+        return list[nomCreateur];
     }
 }
 
@@ -90,8 +82,6 @@ var searchPlayList = function (nomPlaylist, style) {
         })
     }
     return resPlayLists;
-
-
 }
 
 exports.ajouterPlayList = ajouterPlayList;
@@ -99,3 +89,21 @@ exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
 exports.incrementerNbClic = incrementerNbClic;
 exports.searchPlayList = searchPlayList;
+exports.getPlayListbyUsername  = getPlayListbyUsername;
+
+
+
+//Methodes Metier
+/*
+//Constructor with structure
+function PlayList(playlist) {
+    this.idPlaylist = playlist.idPlaylist;
+    this.nomPlayList = playlist.nomPlayList;
+    this.nomCreateur = playlist.nomCreateur;
+    this.nbClic = 0;
+    this.caractere = playlist.caractere;
+    this.listMorceau = playlist.listMorceau;
+    this.listContributeur = playlist.listContributeur;
+    this.datemisajour = new Date();
+}
+*/
