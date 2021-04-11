@@ -31,15 +31,8 @@ var listerUser = function () {
 }
 
 
-var getUserbyName = function (nomUser) {
-    if (typeof listU[nomUser] === 'undefined') return {};
-    else {
-        return listU[nomUser];
-    }
-}
-
 
 exports.ajouterUser = ajouterUser;
 exports.getUser = getUser;
 exports.listerUser = listerUser;
-exports.getUserbyName = getUserbyName;
+

@@ -65,7 +65,6 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
 });
 
 
-
 //------- Metier Morceau -----------
 
 //ajouter client Morceau
@@ -97,7 +96,6 @@ app.get('/api/playlists/searchmorceau', function (req, res) {
 });
 
 
-
 //---------- Metier User ----------
 
 //lister les clients Users
@@ -120,6 +118,26 @@ app.post('/api/user', function (req, res) {
     } else res.status(201).json(objres);
 });
 
+// get un user par nomUser
+app.get('/api/user/:' +
+    'nomUser', function (req, res) {
+
+    //recuperer parameter
+    var nomUser = req.params.nomUser;
+
+    //metier
+    var objres = metierUser.getUser(nomUser);
+
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
+
+
+app.listen(3000, function () {
+    console.log('Server running...');
+});
 
 /*
 app.get('/',function(req,res){
@@ -144,6 +162,3 @@ app.get('/', function (req, res) {
     res.json(obj3)
 });
 */
-app.listen(3000, function () {
-    console.log('Server running...');
-});
