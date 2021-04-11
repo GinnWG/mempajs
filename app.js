@@ -119,8 +119,7 @@ app.post('/api/user', function (req, res) {
 });
 
 // get un user par nomUser
-app.get('/api/user/:' +
-    'nomUser', function (req, res) {
+app.get('/api/user/:nomUser', function (req, res) {
 
     //recuperer parameter
     var nomUser = req.params.nomUser;
@@ -139,26 +138,4 @@ app.listen(3000, function () {
     console.log('Server running...');
 });
 
-/*
-app.get('/',function(req,res){
-    var obj = metierPlayList.ajouterPlayList({"idPlaylist":0,"nomPlayList":"testpl1","nomCreateur":"user1","caractere":"Pop","listMorceau":"music1","listContributeur":"user1"});
-    var obj2  = metierPlayList.getPlayList(0);
-    var obj3 = metierPlayList.listerPlayList();
-    res.send(obj3);
-   // res.json(obj3)
-});
-*/
 
-/*
-app.get('/', function (req, res) {
-    var obj = metierPlayList.ajouterPlayList({
-        "nomPlayList": "testpl1",
-        "nomCreateur": "user1",
-        "listMorceau": "music1",
-    });
-    var obj2 = metierPlayList.getPlayList(1);
-    var obj3 = metierPlayList.listerPlayList();
-    res.send(obj3);
-    res.json(obj3)
-});
-*/

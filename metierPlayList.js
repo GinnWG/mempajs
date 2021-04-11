@@ -19,11 +19,22 @@ function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
     this.datemisajour = new Date();
 }
 
+// get idPlayList just of IDPlaylist
+var getID = function (playlist){
+    return playlist.idPlayList;
+}
+
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
-    const idPlayList = list.length;
-    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
-    return list[idPlayList];
+    let idPlayList;
+    if (list.length === 0) {
+        idPlayList = 0;
+    } else {
+        idPlayList = getID(list[list.length - 1]);
+        idPlayList++;
+    }
+        list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
+        return list[idPlayList];
 }
 
 //incrementer nbClic
