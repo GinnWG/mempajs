@@ -20,7 +20,7 @@ function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
 }
 
 // get idPlayList just of IDPlaylist
-var getID = function (playlist){
+var getID = function (playlist) {
     return playlist.idPlayList;
 }
 
@@ -33,8 +33,8 @@ var ajouterPlayList = function (playlist) {
         idPlayList = getID(list[list.length - 1]);
         idPlayList++;
     }
-        list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
-        return list[idPlayList];
+    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
+    return list[idPlayList];
 }
 
 //incrementer nbClic
@@ -54,7 +54,7 @@ var getPlayList = function (idPlayList) {
 var getPlayListbyUsername = function (nomCreateur) {
     if (typeof list[nomCreateur] === 'undefined') return {};
     else {
-     //   incrementerNbClic(list[nomCreateur]); //chaque fois getplaylist, nbClic++
+        //   incrementerNbClic(list[nomCreateur]); //chaque fois getplaylist, nbClic++
         return list[nomCreateur];
     }
 }
@@ -68,10 +68,10 @@ var listerPlayList = function () {
 var searchPlayList = function (nomPlaylist, style) {
     //copy list to prevent modifications on list
     var resPlayLists = [...list];
-    if (nomPlaylist){
-        if(style){
+    if (nomPlaylist) {
+        if (style) {
             resPlayLists = resPlayLists.filter(playList => {
-                if(playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.caractere.indexOf(style) !== -1) {
+                if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.caractere.indexOf(style) !== -1) {
                     return true
                 }
 
@@ -80,14 +80,14 @@ var searchPlayList = function (nomPlaylist, style) {
     }
     if (nomPlaylist) {
         resPlayLists = resPlayLists.filter(playList => {
-            if(playList.nomPlayList.indexOf(nomPlaylist) !== -1) {
+            if (playList.nomPlayList.indexOf(nomPlaylist) !== -1) {
                 return true
             }
         })
     }
     if (style) {
         resPlayLists = resPlayLists.filter(playList => {
-            if(playList.caractere.indexOf(style) !== -1) {
+            if (playList.caractere.indexOf(style) !== -1) {
                 return true
             }
         })
@@ -95,26 +95,25 @@ var searchPlayList = function (nomPlaylist, style) {
     return resPlayLists;
 }
 
+// get index de la playlist by ID
+var getIndex = function (idPlayList){
+    let index = list.indexOf(idPlayList);
+    return index;
+}
+//Supprimer une playlist
+var supprimerPlayList = function(idPlayList){
+    // console.log(list.indexOf(idPlayList));
+    list.splice(list.indexOf(idPlayList),1);
+}
+
+
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
 exports.incrementerNbClic = incrementerNbClic;
 exports.searchPlayList = searchPlayList;
-exports.getPlayListbyUsername  = getPlayListbyUsername;
+exports.getPlayListbyUsername = getPlayListbyUsername;
+exports.supprimerPlayList = supprimerPlayList;
 
 
 
-//Methodes Metier
-/*
-//Constructor with structure
-function PlayList(playlist) {
-    this.idPlaylist = playlist.idPlaylist;
-    this.nomPlayList = playlist.nomPlayList;
-    this.nomCreateur = playlist.nomCreateur;
-    this.nbClic = 0;
-    this.caractere = playlist.caractere;
-    this.listMorceau = playlist.listMorceau;
-    this.listContributeur = playlist.listContributeur;
-    this.datemisajour = new Date();
-}
-*/

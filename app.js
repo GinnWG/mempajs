@@ -64,6 +64,20 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
     else res.status(200).json(objres);
 });
 
+//Supprimer une playlist
+app.delete('/api/playlists/delete/:idPlayList', function (req,res){
+    //recuperer parameter
+    var idPlayList = req.params.idPlayList;
+
+    //metier
+    var objres = metierPlayList.supprimerPlayList(idPlayList);
+
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
+
 
 //------- Metier Morceau -----------
 
