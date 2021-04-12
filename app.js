@@ -58,7 +58,7 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
     //metier
     var objres = metierPlayList.getPlayList(idPlayList);
 
-    //forger
+    // forger
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});
     else res.status(200).json(objres);
