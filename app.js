@@ -65,17 +65,18 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
 });
 
 //Supprimer une playlist
-app.delete('/api/playlists/delete/:idPlayList', function (req,res){
+app.delete('/api/playlists/delete/:idPlayList', function (req, res) {
     //recuperer parameter
     var idPlayList = req.params.idPlayList;
+    var PlayList = metierPlayList.getPlayList(idPlayList);
 
     //metier
-    var objres = metierPlayList.supprimerPlayList(idPlayList);
-
+    var objres = metierPlayList.supprimerPlayList(PlayList);
+    var list = metierPlayList.listerPlayList();
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
-        res.status(404).json({});
-    else res.status(200).json(objres);
+        res.status(200).json(list);
+    else res.status(404).json({});
 });
 
 

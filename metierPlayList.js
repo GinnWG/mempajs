@@ -100,10 +100,13 @@ var getIndex = function (idPlayList){
     let index = list.indexOf(idPlayList);
     return index;
 }
+
 //Supprimer une playlist
-var supprimerPlayList = function(idPlayList){
+var supprimerPlayList = function(playlist){
     // console.log(list.indexOf(idPlayList));
-    list.splice(list.indexOf(idPlayList),1);
+
+    list.splice(list.indexOf(playlist),1);
+    //list.remove(list.indexOf(playlist));
 }
 
 
