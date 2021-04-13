@@ -68,10 +68,10 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
 app.delete('/api/playlists/delete/:idPlayList', function (req, res) {
     //recuperer parameter
     var idPlayList = req.params.idPlayList;
-    var PlayList = metierPlayList.getPlayList(idPlayList);
+//    var PlayList = metierPlayList.getPlayList(idPlayList);
 
     //metier
-    var objres = metierPlayList.supprimerPlayList(PlayList);
+    var objres = metierPlayList.supprimerPlayList(parseInt(idPlayList));
     var list = metierPlayList.listerPlayList();
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))

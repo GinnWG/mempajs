@@ -102,10 +102,17 @@ var getIndex = function (idPlayList){
 }
 
 //Supprimer une playlist
-var supprimerPlayList = function(playlist){
-    // console.log(list.indexOf(idPlayList));
+var supprimerPlayList = function(idPlaylist){
 
-    list.splice(list.indexOf(playlist),1);
+    for(var i = 0; i< list.length; i++){
+        if(idPlaylist === list[i].idPlayList) {
+            list.splice(i,1);
+        }
+
+    }
+    // console.log(list.indexOf(idPlayList));
+    //list.splice(list.indexOf(playlist),1);
+   // list.splice(indexPlaylist,1);
     //list.remove(list.indexOf(playlist));
 }
 
