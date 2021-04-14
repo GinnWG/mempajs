@@ -65,22 +65,27 @@ var listerPlayList = function () {
 }
 
 //find by style and nomPlayList
-var searchPlayList = function (nomPlaylist, style) {
+var searchPlayList = function (nomPlaylist, nomCreateur, style) {
     //copy list to prevent modifications on list
     var resPlayLists = [...list];
-    if (nomPlaylist) {
-        if (style) {
+
+    if (nomPlaylist && nomCreateur && style) {
             resPlayLists = resPlayLists.filter(playList => {
-                if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.caractere.indexOf(style) !== -1) {
+                if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.nomCreateur.indexOf(nomCreateur) !== -1 && playList.caractere.indexOf(style) !== -1) {
                     return true
                 }
-
             })
-        }
     }
     if (nomPlaylist) {
         resPlayLists = resPlayLists.filter(playList => {
             if (playList.nomPlayList.indexOf(nomPlaylist) !== -1) {
+                return true
+            }
+        })
+    }
+    if (nomCreateur) {
+        resPlayLists = resPlayLists.filter(playList => {
+            if (playList.nomCreateur.indexOf(nomCreateur) !== -1) {
                 return true
             }
         })

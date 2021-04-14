@@ -45,8 +45,9 @@ app.get('/api/playlists', function (req, res) {
 app.get('/api/playlists/search', function (req, res) {
     //filters
     var nomPlayList = req.query.nomPlayList;
+    var nomCreateur = req.query.nomCreateur;
     var caractere = req.query.caractere;
-    res.status(200).json(metierPlayList.searchPlayList(nomPlayList, caractere));
+    res.status(200).json(metierPlayList.searchPlayList(nomPlayList, nomCreateur, caractere));
 });
 
 //Rechercher playlist
