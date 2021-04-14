@@ -3,7 +3,7 @@
 // list of playlist
 //const PlayList = require('./Playlist');
 const list = [];
-
+var idc = 0;
 var listC = [];
 
 
@@ -20,21 +20,30 @@ function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
 }
 
 // get idPlayList just of IDPlaylist
+/*
 var getID = function (playlist) {
     return playlist.idPlayList;
 }
 
+ */
+
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
     let idPlayList;
+    /*
     if (list.length === 0) {
         idPlayList = 0;
     } else {
         idPlayList = getID(list[list.length - 1]);
         idPlayList++;
+        // [0 , 2 , 3 , 4 ]
     }
-    list[idPlayList] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
+    */
+    idPlayList = idc;
+    idc++;
+    list[list.length] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
     return list[idPlayList];
+
 }
 
 //incrementer nbClic
@@ -95,12 +104,6 @@ var searchPlayList = function (nomPlaylist, style) {
     return resPlayLists;
 }
 
-// get index de la playlist by ID
-var getIndex = function (idPlayList){
-    let index = list.indexOf(idPlayList);
-    return index;
-}
-
 //Supprimer une playlist
 var supprimerPlayList = function(idPlaylist){
 
@@ -118,14 +121,14 @@ var supprimerPlayList = function(idPlaylist){
     /*
     var found = Boolean(false);
     let j = 0 ;
-    while (!found) {
+    while (!found ) {
         if (j < list.length) {
-         if(idPlaylist === list[j].idPlayList) {
-              list.splice(j,1);
-             found = true;
-          }
+             if(idPlaylist === list[j].idPlayList) {
+                list.splice(j,1);
+                found = true;
+             }
         }
-         else {
+        else {
              found = true;
          }
     }
