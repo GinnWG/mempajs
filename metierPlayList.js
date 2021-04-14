@@ -50,6 +50,7 @@ var getPlayList = function (idPlayList) {
         return list[idPlayList];
     }
 }
+
 //Get PlayList by nomCreateur ---- Version 4
 var getPlayListbyUsername = function (nomCreateur) {
     if (typeof list[nomCreateur] === 'undefined') return {};
@@ -74,7 +75,6 @@ var searchPlayList = function (nomPlaylist, style) {
                 if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.caractere.indexOf(style) !== -1) {
                     return true
                 }
-
             })
         }
     }
@@ -111,9 +111,25 @@ var supprimerPlayList = function(idPlaylist){
 
     }
     // console.log(list.indexOf(idPlayList));
-    //list.splice(list.indexOf(playlist),1);
-   // list.splice(indexPlaylist,1);
-    //list.remove(list.indexOf(playlist));
+    // list.splice(list.indexOf(playlist),1);
+    // list.splice(indexPlaylist,1);
+    // list.remove(list.indexOf(playlist));
+
+    /*
+    var found = Boolean(false);
+    let j = 0 ;
+    while (!found) {
+        if (j < list.length) {
+         if(idPlaylist === list[j].idPlayList) {
+              list.splice(j,1);
+             found = true;
+          }
+        }
+         else {
+             found = true;
+         }
+    }
+     */
 }
 
 
