@@ -105,11 +105,11 @@ var searchPlayList = function (nomPlaylist, style) {
 }
 
 //Supprimer une playlist
-var supprimerPlayList = function(idPlaylist){
+var supprimerPlayList = function (idPlaylist) {
 
-    for(var i = 0; i< list.length; i++){
-        if(idPlaylist === list[i].idPlayList) {
-            list.splice(i,1);
+    for (var i = 0; i < list.length; i++) {
+        if (idPlaylist === list[i].idPlayList) {
+            list.splice(i, 1);
         }
 
     }
@@ -134,7 +134,24 @@ var supprimerPlayList = function(idPlaylist){
     }
      */
 }
+//get position of a playlist
+var getposition = function(idPlaylist) {
+    for(let i = 0; i<list.length; i++){
+        if (list[i].idPlayList === idPlaylist)
+            return i;
+    }
+    return -1;
+}
 
+// ajouter un Contributeur dans la playlist
+var ajouterUserInPlaylist = function (idPlaylist, nomUser) {
+    let pos = getposition(idPlaylist);
+    if( pos !== -1){
+        list[pos].listContributeur.add(nomUser);
+    }
+    //list[getposition(idPlaylist)].listContributeur.add(nomUser);
+    alert('Eh ! ça marche pas bien ton truc ! ');
+}
 
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
@@ -144,5 +161,5 @@ exports.searchPlayList = searchPlayList;
 exports.getPlayListbyUsername = getPlayListbyUsername;
 exports.supprimerPlayList = supprimerPlayList;
 
-
+exports.ajouterUserInPlaylist = ajouterUserInPlaylist;
 

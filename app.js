@@ -64,12 +64,26 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
     else res.status(200).json(objres);
 });
 
-//Supprimer une playlist
-app.delete('/api/playlists/delete/:idPlayList', function (req, res) {
+//Ajouter un Contributeur
+app.put('/api/playlists/edit/:idPlayList', function (req,res){
     //recuperer parameter
     var idPlayList = req.params.idPlayList;
-//    var PlayList = metierPlayList.getPlayList(idPlayList);
+    var nomUser = req.body;
+    //metier
 
+    var objres = metierPlayList.ajouterUserInPlaylist(idPlayList,nomUser);
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+
+
+});
+
+//Supprimer une playlist
+app.delete('/api/playlists/delete/:idPlayList ', function (req, res) {
+    //recuperer parameter
+    var idPlayList = req.params.idPlayList;
     //metier
     var objres = metierPlayList.supprimerPlayList(parseInt(idPlayList));
     var list = metierPlayList.listerPlayList();
