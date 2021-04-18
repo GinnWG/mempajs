@@ -13,8 +13,8 @@ function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
     this.nomPlayList = nomPlayList;
     this.nomCreateur = nomCreateur;
     this.nbClic = 0;
-    this.listMorceau = "";
-    this.listContributeur = "";
+    this.listMorceau = [];
+    this.listContributeur = [];
     this.caractere = caractere;
     this.datemisajour = new Date();
 }
@@ -134,10 +134,11 @@ var supprimerPlayList = function (idPlaylist) {
     }
      */
 }
+
 //get position of a playlist
 var getposition = function(idPlaylist) {
     for(let i = 0; i<list.length; i++){
-        if (list[i].idPlayList === idPlaylist)
+        if (list[i].idPlayList == idPlaylist)
             return i;
     }
     return -1;
@@ -145,12 +146,32 @@ var getposition = function(idPlaylist) {
 
 // ajouter un Contributeur dans la playlist
 var ajouterUserInPlaylist = function (idPlaylist, nomUser) {
-    let pos = getposition(idPlaylist);
-    if( pos !== -1){
-        list[pos].listContributeur.add(nomUser);
+    let position = getposition(idPlaylist);
+    if( position !== -1){
+        list[position].listContributeur.push(nomUser);
+        return list[position].listContributeur;
     }
-    //list[getposition(idPlaylist)].listContributeur.add(nomUser);
-    alert('Eh ! ça marche pas bien ton truc ! ');
+    // list[getposition(idPlaylist)].listContributeur.add(nomUser);
+    //alert('Eh ! ça ne marche pas bien ton truc ! ');
+}
+
+// ajouter un Morceau dans la PlayList
+var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
+    let position = getposition(idPlaylist);
+    if (position !== -1) {
+        list[position].listMorceau.push(titre);
+        return list[position].listMorceau;
+    }
+}
+
+// ajouter un Morceau et un Contributeur dans la Playlist
+var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
+    let position = getposition(idPlaylist);
+    if (position !== -1) {
+        list[position].listMorceau.push(titre);
+        list[position].listContributeur.push(nomUser)
+        return list[position];
+    }
 }
 
 exports.ajouterPlayList = ajouterPlayList;
@@ -160,6 +181,7 @@ exports.incrementerNbClic = incrementerNbClic;
 exports.searchPlayList = searchPlayList;
 exports.getPlayListbyUsername = getPlayListbyUsername;
 exports.supprimerPlayList = supprimerPlayList;
-
 exports.ajouterUserInPlaylist = ajouterUserInPlaylist;
+exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
+exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
 

@@ -72,8 +72,18 @@ var searchMorceau = function (titre, artiste) {
     return resMorceau;
 }
 
+var getArtistbyTitle = function (titre) {
+    for(let i = 0; i<listM.length; i++) {
+        if(listM[i].titre.equals(titre)) {
+            return listM[i].artiste;
+        }
+    }
+    return "";
+}
+
 
 exports.ajouterMorceau = ajouterMorceau;
 exports.listerMorceau = listerMorceau;
 //exports.getMorceau = getMorceau;
 exports.searchMorceau = searchMorceau;
+exports.getArtistbyTitle = getArtistbyTitle;
