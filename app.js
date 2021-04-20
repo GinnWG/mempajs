@@ -66,20 +66,47 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
 });
 
 //Supprimer une playlist
-app.delete('/api/playlists/delete/:idPlayList', function (req,res){
+app.delete('/api/playlists/delete/:idPlayList', function (req, res) {
     //recuperer parameter
     var idPlayList = req.params.idPlayList;
-
     //metier
-    var objres = metierPlayList.supprimerPlayList(idPlayList);
+    var objres = metierPlayList.supprimerPlayList(parseInt(idPlayList));
+    var list = metierPlayList.listerPlayList();
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(200).json(list);
+    else res.status(404).json({});
+});
 
+/*
+//Ajouter un Contributeur dans la Playlist
+app.put('/api/playlists/edit/:idPlayList/:contributeur', function (req, res) {
+    //recuperer parameter
+    var idPlayList = parseInt(req.params.idPlayList);
+    var contributeur = req.params.contributeur;
+    //metier
+    var objres = metierPlayList.ajouterUserInPlaylist(idPlayList, contributeur);
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});
     else res.status(200).json(objres);
 });
 
+ */
 
+//Ajouter un Contributeur et un Morceau dans la Playlist
+app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, res) {
+    //recuperer parameter
+    var idPlayList = parseInt(req.params.idPlayList);
+    var contributor = req.params.contributor;
+    var titre = req.params.titre;
+    //metier
+    var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
 //------- Metier Morceau -----------
 
 //ajouter client Morceau
@@ -109,6 +136,9 @@ app.get('/api/playlists/searchmorceau', function (req, res) {
     var artiste = req.query.artiste;
     res.status(200).json(metierMorceau.searchMorceau(titre, artiste));
 });
+
+//get Artiste par Titre
+
 
 
 //---------- Metier User ----------
@@ -152,5 +182,4 @@ app.get('/api/user/:nomUser', function (req, res) {
 app.listen(3000, function () {
     console.log('Server running...');
 });
-
 
