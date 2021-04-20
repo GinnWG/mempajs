@@ -193,6 +193,19 @@ var getPlayListByCreateur = function (idUser) {
     return response;
 }
 
+// Get a PlayList by style
+var getPlayListByStyle = function (caractere) {
+    let response = [];
+
+    list.forEach(function (playlist) {
+        if (playlist.caractere === caractere) {
+            response.push(playlist);
+        }
+    });
+
+    return response;
+}
+
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
@@ -204,4 +217,5 @@ exports.ajouterUserInPlaylist = ajouterUserInPlaylist;
 exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
 exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
 exports.getPlayListByCreateur = getPlayListByCreateur;
+exports.getPlayListByStyle = getPlayListByStyle;
 

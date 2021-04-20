@@ -186,15 +186,31 @@ app.get('/api/playlists/parCreateur/:idUser', function (req, res) {
 
     //metier
     var objres = metierPlayList.getPlayListByCreateur(idUser);
-1
+
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});
     else res.status(200).json(objres);
 });
 
+//Rechercher playlist par style
+app.get('/api/playlists/parStyle/:caractere', function (req, res) {
+
+    //recuperer parameter
+    var caractere = req.params.caractere;
+
+    //metier
+    var objres = metierPlayList.getPlayListByStyle(caractere);
+
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
 
 app.listen(3000, function () {
     console.log('Server running...');
 });
+
+
 
