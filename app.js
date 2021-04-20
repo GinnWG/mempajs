@@ -177,6 +177,21 @@ app.get('/api/user/:nomUser', function (req, res) {
     else res.status(200).json(objres);
 });
 
+//Rechercher playlist par créateur
+app.get('/api/playlists/parCreateur/:idUser', function (req, res) {
+
+    //recuperer parameter
+    var idUser = req.params.idUser;
+
+    //metier
+    var objres = metierPlayList.getPlayListByCreateur(idUser);
+1
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
+
 
 app.listen(3000, function () {
     console.log('Server running...');

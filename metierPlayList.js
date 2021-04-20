@@ -174,6 +174,19 @@ var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
     }
 }
 
+// Get a PlayList by creator
+var getPlayListByCreateur = function (idUser) {
+    let response = [];
+
+    list.forEach(function (playlist) {
+        if (playlist.nomCreateur === idUser) {
+            response.push(playlist);
+        }
+    });
+
+    return response;
+}
+
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
@@ -184,4 +197,5 @@ exports.supprimerPlayList = supprimerPlayList;
 exports.ajouterUserInPlaylist = ajouterUserInPlaylist;
 exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
 exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
+exports.getPlayListByCreateur = getPlayListByCreateur;
 
