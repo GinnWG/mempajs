@@ -111,26 +111,6 @@ var supprimerPlayList = function (idPlaylist) {
         }
 
     }
-    // console.log(list.indexOf(idPlayList));
-    // list.splice(list.indexOf(playlist),1);
-    // list.splice(indexPlaylist,1);
-    // list.remove(list.indexOf(playlist));
-
-    /*
-    var found = Boolean(false);
-    let j = 0 ;
-    while (!found ) {
-        if (j < list.length) {
-             if(idPlaylist === list[j].idPlayList) {
-                list.splice(j,1);
-                found = true;
-             }
-        }
-        else {
-             found = true;
-         }
-    }
-     */
 }
 
 //get position of a playlist
@@ -166,6 +146,8 @@ var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
 var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
     let position = getposition(idPlaylist);
     if (position !== -1) {
+        console.log(nomUser);
+        console.log(titre);
         list[position].listMorceau.push(titre);
         list[position].listContributeur.push(nomUser)
         return list[position];

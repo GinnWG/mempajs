@@ -109,6 +109,7 @@ app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, re
     else res.status(200).json(objres);
 });
 
+
 //Ajouter un Contributeur et un Morceau dans la Playlist
 app.put('/api/playlists/edit/:idPlayList', function (req, res) {
     //recuperer parameter
@@ -117,15 +118,21 @@ app.put('/api/playlists/edit/:idPlayList', function (req, res) {
    // var titre = req.params.titre;
 
     var data = req.body;
-    var contributor = data.contributor;
-    var titre = data.titre;
+    console.log('--------------------------');
+    console.log(req.body);
+
+    var contributor = data['listContributeur'];
+    var title = data['listMorceau'];
+
     //metier
-    var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+    var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, title);
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});
     else res.status(200).json(objres);
 });
+
+
 //------- Metier Morceau -----------
 
 //ajouter client Morceau
@@ -196,6 +203,8 @@ app.get('/api/user/:nomUser', function (req, res) {
         res.status(404).json({});
     else res.status(200).json(objres);
 });
+
+//----------- Version 4 -----------
 
 //Rechercher playlist par créateur
 app.get('/api/playlists/parCreateur/:idUser', function (req, res) {
