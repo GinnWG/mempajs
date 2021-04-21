@@ -82,6 +82,7 @@ app.delete('/api/playlists/delete/:idPlayList', function (req, res) {
 //Ajouter un Contributeur dans la Playlist
 app.put('/api/playlists/edit/:idPlayList/:contributeur', function (req, res) {
     //recuperer parameter
+    if()
     var idPlayList = parseInt(req.params.idPlayList);
     var contributeur = req.params.contributeur;
     //metier
@@ -92,7 +93,6 @@ app.put('/api/playlists/edit/:idPlayList/:contributeur', function (req, res) {
     else res.status(200).json(objres);
 });
 
- */
 
 //Ajouter un Contributeur et un Morceau dans la Playlist
 app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, res) {
@@ -108,24 +108,22 @@ app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, re
         res.status(404).json({});
     else res.status(200).json(objres);
 });
-
+ */
 
 //Ajouter un Contributeur et un Morceau dans la Playlist
 app.put('/api/playlists/edit/:idPlayList', function (req, res) {
+    console.log(req.body);
     //recuperer parameter
     var idPlayList = parseInt(req.params.idPlayList);
-   // var contributor = req.params.contributor;
-   // var titre = req.params.titre;
+    var contributor = req.body.contributor;
+    var titre = req.body.titre;
+    if(metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
+        // var contributor = data['listContributeur'];
+        // var title = data['listMorceau'];
 
-    var data = req.body;
-    console.log('--------------------------');
-    console.log(req.body);
-
-    var contributor = data['listContributeur'];
-    var title = data['listMorceau'];
-
-    //metier
-    var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, title);
+        //metier
+        var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+    }
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});

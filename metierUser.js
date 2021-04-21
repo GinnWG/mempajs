@@ -17,6 +17,13 @@ var ajouterUser = function (user) {
     return listU[idUser];
 }
 
+//ajouter au user by name
+var ajouterUserbyName = function (username) {
+    const idUser = listU.length;
+    listU[idUser] = new User(username,idUser);
+    return listU[idUser];
+}
+
 // Get an User by name
 var getUser = function (nomUser) {
     if (typeof listU[nomUser] === 'undefined') return {};
@@ -35,4 +42,4 @@ var listerUser = function () {
 exports.ajouterUser = ajouterUser;
 exports.getUser = getUser;
 exports.listerUser = listerUser;
-
+exports.ajouterUserbyName = ajouterUserbyName;

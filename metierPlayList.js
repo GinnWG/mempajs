@@ -2,9 +2,10 @@
 
 // list of playlist
 //const PlayList = require('./Playlist');
+const metierUser = require("./metierUser");
 const list = [];
 var idc = 0;
-var listC = [];
+var listU = [];
 
 
 //Constructor pour la version 1, nomPlayliste, nomCreateur, listMorceau => "creer une playliste et proposer des titres"
@@ -72,11 +73,11 @@ var searchPlayList = function (nomPlaylist, nomCreateur, style) {
     var resPlayLists = [...list];
 
     if (nomPlaylist && nomCreateur && style) {
-            resPlayLists = resPlayLists.filter(playList => {
-                if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.nomCreateur.indexOf(nomCreateur) !== -1 && playList.caractere.indexOf(style) !== -1) {
-                    return true
-                }
-            })
+        resPlayLists = resPlayLists.filter(playList => {
+            if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.nomCreateur.indexOf(nomCreateur) !== -1 && playList.caractere.indexOf(style) !== -1) {
+                return true
+            }
+        })
     }
     if (nomPlaylist) {
         resPlayLists = resPlayLists.filter(playList => {
@@ -114,8 +115,8 @@ var supprimerPlayList = function (idPlaylist) {
 }
 
 //get position of a playlist
-var getposition = function(idPlaylist) {
-    for(let i = 0; i<list.length; i++){
+var getposition = function (idPlaylist) {
+    for (let i = 0; i < list.length; i++) {
         if (list[i].idPlayList == idPlaylist)
             return i;
     }
@@ -125,7 +126,7 @@ var getposition = function(idPlaylist) {
 // ajouter un Contributeur dans la playlist
 var ajouterUserInPlaylist = function (idPlaylist, nomUser) {
     let position = getposition(idPlaylist);
-    if( position !== -1){
+    if (position !== -1) {
         list[position].listContributeur.push(nomUser);
         return list[position].listContributeur;
     }
@@ -141,16 +142,48 @@ var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
         return list[position].listMorceau;
     }
 }
+// Function verify UserName Exist
+var estExist = function (nomUser) {
+    const listU = metierUser.listerUser();
+    for (let i = 0; i < listU.length; i++) {
+        if (nomUser === listU[i].nomUser)
+            return true;
+    }
+    return false;
+}
+
+// Function de la verification
+var estPresent = function (input) {
+    return (input !== '');
+}
 
 // ajouter un Morceau et un Contributeur dans la Playlist
 var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
-    let position = getposition(idPlaylist);
-    if (position !== -1) {
-        console.log(nomUser);
-        console.log(titre);
-        list[position].listMorceau.push(titre);
-        list[position].listContributeur.push(nomUser)
-        return list[position];
+    // vérifie qu'il n'existe pas déjà
+    if (estPresent(nomUser) && estPresent(titre)) {
+        if (!estExist(nomUser))
+            // crée User
+            metierUser.ajouterUserbyName(nomUser);
+        // l'ajoute a la list User
+        //  metierUser.listerUser().push(user);
+        // on renvoie vrai
+        // return true;
+
+        let position = getposition(idPlaylist);
+        if (position !== -1) {
+            // console.log(nomUser);
+            // console.log(titre);
+            list[position].listMorceau.push(titre);
+            list[position].listContributeur.push(nomUser)
+            return list[position];
+        }
+    /*
+    else {
+        // on renvoie faux
+        return false;
+    }
+
+     */
     }
 }
 
@@ -192,4 +225,4 @@ exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
 exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
 exports.getPlayListByCreateur = getPlayListByCreateur;
 exports.getPlayListByStyle = getPlayListByStyle;
-
+exports.estPresent = estPresent;
