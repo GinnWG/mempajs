@@ -30,15 +30,7 @@ var getID = function (playlist) {
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
     let idPlayList;
-    /*
-    if (list.length === 0) {
-        idPlayList = 0;
-    } else {
-        idPlayList = getID(list[list.length - 1]);
-        idPlayList++;
-        // [0 , 2 , 3 , 4 ]
-    }
-    */
+
     idPlayList = idc;
     idc++;
     list[list.length] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);

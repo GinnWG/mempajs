@@ -99,6 +99,25 @@ app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, re
     var idPlayList = parseInt(req.params.idPlayList);
     var contributor = req.params.contributor;
     var titre = req.params.titre;
+
+    //metier
+    var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
+
+//Ajouter un Contributeur et un Morceau dans la Playlist
+app.put('/api/playlists/edit/:idPlayList', function (req, res) {
+    //recuperer parameter
+    var idPlayList = parseInt(req.params.idPlayList);
+   // var contributor = req.params.contributor;
+   // var titre = req.params.titre;
+
+    var data = req.body;
+    var contributor = data.contributor;
+    var titre = data.titre;
     //metier
     var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
     //forger
