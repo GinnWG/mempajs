@@ -67,21 +67,27 @@ var listerPlayList = function () {
 }
 
 //find by style and nomPlayList
-var searchPlayList = function (nomPlaylist, style) {
+var searchPlayList = function (nomPlaylist, nomCreateur, style) {
     //copy list to prevent modifications on list
     var resPlayLists = [...list];
-    if (nomPlaylist) {
-        if (style) {
+
+    if (nomPlaylist && nomCreateur && style) {
             resPlayLists = resPlayLists.filter(playList => {
-                if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.caractere.indexOf(style) !== -1) {
+                if (playList.nomPlayList.indexOf(nomPlaylist) !== -1 && playList.nomCreateur.indexOf(nomCreateur) !== -1 && playList.caractere.indexOf(style) !== -1) {
                     return true
                 }
             })
-        }
     }
     if (nomPlaylist) {
         resPlayLists = resPlayLists.filter(playList => {
             if (playList.nomPlayList.indexOf(nomPlaylist) !== -1) {
+                return true
+            }
+        })
+    }
+    if (nomCreateur) {
+        resPlayLists = resPlayLists.filter(playList => {
+            if (playList.nomCreateur.indexOf(nomCreateur) !== -1) {
                 return true
             }
         })
@@ -166,6 +172,32 @@ var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
     }
 }
 
+// Get a PlayList by creator
+var getPlayListByCreateur = function (idUser) {
+    let response = [];
+
+    list.forEach(function (playlist) {
+        if (playlist.nomCreateur === idUser) {
+            response.push(playlist);
+        }
+    });
+
+    return response;
+}
+
+// Get a PlayList by style
+var getPlayListByStyle = function (caractere) {
+    let response = [];
+
+    list.forEach(function (playlist) {
+        if (playlist.caractere === caractere) {
+            response.push(playlist);
+        }
+    });
+
+    return response;
+}
+
 exports.ajouterPlayList = ajouterPlayList;
 exports.getPlayList = getPlayList;
 exports.listerPlayList = listerPlayList;
@@ -176,4 +208,6 @@ exports.supprimerPlayList = supprimerPlayList;
 exports.ajouterUserInPlaylist = ajouterUserInPlaylist;
 exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
 exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
+exports.getPlayListByCreateur = getPlayListByCreateur;
+exports.getPlayListByStyle = getPlayListByStyle;
 

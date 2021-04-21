@@ -45,8 +45,9 @@ app.get('/api/playlists', function (req, res) {
 app.get('/api/playlists/search', function (req, res) {
     //filters
     var nomPlayList = req.query.nomPlayList;
+    var nomCreateur = req.query.nomCreateur;
     var caractere = req.query.caractere;
-    res.status(200).json(metierPlayList.searchPlayList(nomPlayList, caractere));
+    res.status(200).json(metierPlayList.searchPlayList(nomPlayList, nomCreateur, caractere));
 });
 
 //Rechercher playlist
@@ -58,7 +59,7 @@ app.get('/api/playlists/:idPlayList', function (req, res) {
     //metier
     var objres = metierPlayList.getPlayList(idPlayList);
 
-    //forger
+    // forger
     if ((typeof objres === 'undefined') || (objres === {}))
         res.status(404).json({});
     else res.status(200).json(objres);
@@ -196,8 +197,39 @@ app.get('/api/user/:nomUser', function (req, res) {
     else res.status(200).json(objres);
 });
 
+//Rechercher playlist par créateur
+app.get('/api/playlists/parCreateur/:idUser', function (req, res) {
+
+    //recuperer parameter
+    var idUser = req.params.idUser;
+
+    //metier
+    var objres = metierPlayList.getPlayListByCreateur(idUser);
+
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
+
+//Rechercher playlist par style
+app.get('/api/playlists/parStyle/:caractere', function (req, res) {
+
+    //recuperer parameter
+    var caractere = req.params.caractere;
+
+    //metier
+    var objres = metierPlayList.getPlayListByStyle(caractere);
+
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}))
+        res.status(404).json({});
+    else res.status(200).json(objres);
+});
 
 app.listen(3000, function () {
     console.log('Server running...');
 });
+
+
 
