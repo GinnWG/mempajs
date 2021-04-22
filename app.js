@@ -115,14 +115,42 @@ app.put('/api/playlists/edit/:idPlayList', function (req, res) {
     console.log(req.body);
     //recuperer parameter
     var idPlayList = parseInt(req.params.idPlayList);
+    var pl = metierPlayList.getPlayList(idPlayList);
+
+    var contributor = req.body.contributor;
+    var titre = req.body.titre;
+    req.body = pl;
+
+    if(metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
+        // var contributor = data['listContributeur'];
+        // var title = data['listMorceau'];
+        //metier
+        var objres = metierPlayList.ajouterUserInPlayList(idPlayList, contributor);
+        var objres2 = metierPlayList.ajouterMorcerauInPlayList(idPlayList,titre);
+    }
+    //forger
+    if ((typeof objres === 'undefined') || (objres === {}) || (typeof objres2 === 'undefined') || (objres2 === {}) )
+        res.status(404).json({});
+    else {
+        res.status(200).json(objres);
+        res.status(200).json(objres2);
+    }
+});
+
+/*
+//Ajouter un Contributeur et un Morceau dans la Playlist
+app.put('/api/playlists/edit/:idPlayList', function (req, res) {
+    console.log(req.body);
+    //recuperer parameter
+    var idPlayList = parseInt(req.params.idPlayList);
     var contributor = req.body.contributor;
     var titre = req.body.titre;
     if(metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
         // var contributor = data['listContributeur'];
         // var title = data['listMorceau'];
-
         //metier
-        var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+        var objres = metierPlayList.ajouterUserInPlayList(idPlayList, contributor); //titre);
+        var objres2 = metierPlayList.ajouterMorcerauInPlayList(idPlayList,titre);
     }
     //forger
     if ((typeof objres === 'undefined') || (objres === {}))
@@ -130,6 +158,7 @@ app.put('/api/playlists/edit/:idPlayList', function (req, res) {
     else res.status(200).json(objres);
 });
 
+ */
 
 //------- Metier Morceau -----------
 

@@ -135,6 +135,7 @@ var ajouterUserInPlaylist = function (idPlaylist, nomUser) {
 }
 
 // ajouter un Morceau dans la PlayList
+/*
 var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
     let position = getposition(idPlaylist);
     if (position !== -1) {
@@ -142,6 +143,8 @@ var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
         return list[position].listMorceau;
     }
 }
+ */
+
 // Function verify UserName Exist
 var estExist = function (nomUser) {
     const listU = metierUser.listerUser();
@@ -154,11 +157,53 @@ var estExist = function (nomUser) {
 
 // Function de la verification
 var estPresent = function (input) {
-    return (input !== '');
+    return input !== undefined;
 }
 
 // ajouter un Morceau et un Contributeur dans la Playlist
-var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
+var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
+    // vérifie qu'il n'existe pas déjà
+    if (estPresent(titre)) {
+
+        let position = getposition(idPlaylist);
+        if (position !== -1) {
+            // console.log(nomUser);
+            // console.log(titre);
+             list[position].listMorceau.push(titre);
+            //list[position].listContributeur.push(nomUser)
+            return list[position];
+        }
+    }
+}
+
+// ajouter un User dans la Playlist
+
+var ajouterUserInPlayList = function (idPlaylist, nomUser) {
+    // vérifie qu'il n'existe pas déjà
+    if (estPresent(nomUser)){
+        if (!estExist(nomUser))
+            // crée User
+            metierUser.ajouterUserbyName(nomUser);
+        // l'ajoute a la list User
+        //  metierUser.listerUser().push(user);
+        // on renvoie vrai
+        // return true;
+
+        let position = getposition(idPlaylist);
+        if (position !== -1) {
+            // console.log(nomUser);
+            // console.log(titre);
+           // list[position].listMorceau.push(titre);
+             list[position].listContributeur.push(nomUser)
+            return list[position];
+        }
+    }
+}
+
+
+
+// save
+var ajouterUserInPlayList = function (idPlaylist, nomUser, titre) {
     // vérifie qu'il n'existe pas déjà
     if (estPresent(nomUser) && estPresent(titre)) {
         if (!estExist(nomUser))
@@ -174,16 +219,9 @@ var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
             // console.log(nomUser);
             // console.log(titre);
             list[position].listMorceau.push(titre);
-            list[position].listContributeur.push(nomUser)
+            // list[position].listContributeur.push(nomUser)
             return list[position];
         }
-    /*
-    else {
-        // on renvoie faux
-        return false;
-    }
-
-     */
     }
 }
 
@@ -222,7 +260,8 @@ exports.getPlayListbyUsername = getPlayListbyUsername;
 exports.supprimerPlayList = supprimerPlayList;
 exports.ajouterUserInPlaylist = ajouterUserInPlaylist;
 exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
-exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
+//exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
 exports.getPlayListByCreateur = getPlayListByCreateur;
 exports.getPlayListByStyle = getPlayListByStyle;
 exports.estPresent = estPresent;
+exports.ajouterUserInPlayList = ajouterUserInPlayList;
