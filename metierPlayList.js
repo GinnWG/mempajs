@@ -222,6 +222,7 @@ var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
             return list[position];
         }
     }
+    return -1;
 }
 
 // Get a PlayList by creator
