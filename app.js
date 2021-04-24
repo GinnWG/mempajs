@@ -23,8 +23,9 @@ app.all('*', function (req, res, next) {
 //ajouter client playlist
 app.post('/api/playlists', function (req, res) {
     //recuperer parameter
-    var playlist = req.body;
 
+    var playlist = req.body;
+    console.log(playlist);
     //metier
     var objres = metierPlayList.ajouterPlayList(playlist);
     console.log(objres);
@@ -112,28 +113,30 @@ app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, re
 
 //Ajouter un Contributeur et un Morceau dans la Playlist
 app.put('/api/playlists/edit/:idPlayList', function (req, res) {
-    console.log(req.body);
+
     //recuperer parameter
     var idPlayList = parseInt(req.params.idPlayList);
-    var pl = metierPlayList.getPlayList(idPlayList);
-
     var contributor = req.body.contributor;
-    var titre = req.body.titre;
-    req.body = pl;
+    var titre = req.body.music;
+    console.log(req.body);
 
-    if(metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
+    if (metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
         // var contributor = data['listContributeur'];
         // var title = data['listMorceau'];
-        //metier
-        var objres = metierPlayList.ajouterUserInPlayList(idPlayList, contributor);
-        var objres2 = metierPlayList.ajouterMorcerauInPlayList(idPlayList,titre);
+        // metier
+        var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+        console.log(contributor);
+        console.log(titre);
+        // var objres2 = metierPlayList.ajouterMorcerauInPlayList(idPlayList,titre);
+
     }
     //forger
-    if ((typeof objres === 'undefined') || (objres === {}) || (typeof objres2 === 'undefined') || (objres2 === {}) )
+    if ((typeof objres === 'undefined') || (objres === {}) )
+        // (typeof objres2 === 'undefined') || (objres2 === {})
         res.status(404).json({});
     else {
         res.status(200).json(objres);
-        res.status(200).json(objres2);
+       // res.status(200).json(objres2);
     }
 });
 
@@ -191,7 +194,6 @@ app.get('/api/playlists/searchmorceau', function (req, res) {
 });
 
 //get Artiste par Titre
-
 
 
 //---------- Metier User ----------
