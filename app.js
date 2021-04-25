@@ -116,9 +116,12 @@ app.put('/api/playlists/edit/:idPlayList', function (req, res) {
 
     //recuperer parameter
     var idPlayList = parseInt(req.params.idPlayList);
-    var contributor = req.body.contributor;
-    var titre = req.body.music;
+    let contributor = req.body["newcontributor"];
+    let titre = req.body["newtitle"];
+
     console.log(req.body);
+    console.log(contributor);
+    console.log(titre);
 
     if (metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
         // var contributor = data['listContributeur'];

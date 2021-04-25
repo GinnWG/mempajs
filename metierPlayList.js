@@ -169,7 +169,7 @@ var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
         if (position !== -1) {
             // console.log(nomUser);
             // console.log(titre);
-             list[position].listMorceau.push(titre);
+            list[position].listMorceau.push(titre);
             //list[position].listContributeur.push(nomUser)
             return list[position];
         }
@@ -204,23 +204,46 @@ var ajouterUserInPlayList = function (idPlaylist, nomUser) {
 // save
 var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
     // vérifie qu'il n'existe pas déjà
+    let position = getposition(idPlaylist);
+    let i = 0;
+    let inlist = false;
     if (estPresent(nomUser) && estPresent(titre)) {
-        if (!estExist(nomUser))
+        console.log('test de validation');
+        if (!estExist(nomUser)) {
             // crée User
             metierUser.ajouterUserbyName(nomUser);
-        // l'ajoute a la list User
-        //  metierUser.listerUser().push(user);
-        // on renvoie vrai
-        // return true;
+            console.log(list[idPlaylist].listContributeur);
+            while (position !== -1 && i<list[idPlaylist].listContributeur.length && !inlist) {
 
-        let position = getposition(idPlaylist);
-        if (position !== -1) {
-            // console.log(nomUser);
-            // console.log(titre);
-            list[position].listMorceau.push(titre);
-            list[position].listContributeur.push(nomUser)
-            return list[position];
+                console.log('test while user');
+
+                if (list[idPlaylist].listContributeur[i] === nomUser) {
+                    console.log('user already in list!');
+                    inlist = true;
+                }
+                i++;
+            }
+            console.log(inlist + ' ' + position);
+            if (!inlist && position !== -1){
+                list[position].listContributeur.push(nomUser);
+            }
+        } else {
+            while (position !== -1 && i<list[idPlaylist].listContributeur.length && !inlist) {
+
+                console.log('test while user');
+
+                if (list[idPlaylist].listContributeur[i] === nomUser) {
+                    console.log('user already in list!');
+                    inlist = true;
+                }
+                i++;
+            }
+            console.log(inlist + ' ' + position);
+            if (!inlist && position !== -1){
+                list[position].listContributeur.push(nomUser);
+            }
         }
+        return list[position];
     }
     return -1;
 }
