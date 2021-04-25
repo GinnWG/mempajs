@@ -207,44 +207,51 @@ var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre) {
     let position = getposition(idPlaylist);
     let i = 0;
     let inlist = false;
+    let inlistM = false;
     if (estPresent(nomUser) && estPresent(titre)) {
         console.log('test de validation');
         if (!estExist(nomUser)) {
             // crée User
             metierUser.ajouterUserbyName(nomUser);
-            console.log(list[idPlaylist].listContributeur);
-            while (position !== -1 && i<list[idPlaylist].listContributeur.length && !inlist) {
-
-                console.log('test while user');
+            while (position !== -1 && i < list[idPlaylist].listContributeur.length && !inlist) {
 
                 if (list[idPlaylist].listContributeur[i] === nomUser) {
-                    console.log('user already in list!');
                     inlist = true;
                 }
                 i++;
             }
-            console.log(inlist + ' ' + position);
-            if (!inlist && position !== -1){
+            if (!inlist && position !== -1) {
                 list[position].listContributeur.push(nomUser);
             }
         } else {
-            while (position !== -1 && i<list[idPlaylist].listContributeur.length && !inlist) {
-
-                console.log('test while user');
+            while (position !== -1 && i < list[idPlaylist].listContributeur.length && !inlist) {
 
                 if (list[idPlaylist].listContributeur[i] === nomUser) {
-                    console.log('user already in list!');
                     inlist = true;
                 }
                 i++;
             }
-            console.log(inlist + ' ' + position);
-            if (!inlist && position !== -1){
+            if (!inlist && position !== -1) {
                 list[position].listContributeur.push(nomUser);
             }
         }
+        //ajoute Morceau
+        i = 0;
+        while (position !== -1 && i < list[idPlaylist].listMorceau.length && !inlistM) {
+            console.log(list[idPlaylist].listMorceau[i] + ' ' + titre);
+            console.log(titre === list[idPlaylist].listMorceau[i].titre);
+            if (titre === list[idPlaylist].listMorceau[i]) {
+                console.log('found the same');
+                inlistM = true;
+            }
+            i++;
+        }
+        if (position !== -1 && !inlistM) {
+            list[position].listMorceau.push(titre);
+        }
         return list[position];
     }
+
     return -1;
 }
 
