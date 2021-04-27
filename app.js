@@ -112,23 +112,21 @@ app.put('/api/playlists/edit/:idPlayList/:contributor/:titre', function (req, re
 
 //Ajouter un Contributeur et un Morceau dans la Playlist
 app.put('/api/playlists/edit/:idPlayList', function (req, res) {
-
+    console.log('==============');
+    console.log(req.body);
+    console.log(req.body["idmusic"]);
     //recuperer parameter
     var idPlayList = parseInt(req.params.idPlayList);
     let contributor = req.body["newcontributor"];
     let titre = req.body["newtitle"];
-
-    console.log(req.body);
-    console.log(contributor);
-    console.log(titre);
+    let idMusic = req.body["idmusic"];
 
     if (metierPlayList.estPresent(idPlayList) && metierPlayList.estPresent(contributor) && metierPlayList.estPresent(titre)) {
-        // var contributor = data['listContributeur'];
-        // var title = data['listMorceau'];
         // metier
-        var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre);
+        var objres = metierPlayList.ajouterUserMorceauInPl(idPlayList, contributor, titre, idMusic);
         console.log(contributor);
         console.log(titre);
+        console.log(idMusic);
         // var objres2 = metierPlayList.ajouterMorcerauInPlayList(idPlayList,titre);
 
     }
