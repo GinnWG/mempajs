@@ -61,7 +61,7 @@ const incrementerNbClic = function (playlist) {
 var getPlayList = function (idPlayList) {
     if (typeof list[idPlayList] === 'undefined') return {};
     else {
-        incrementerNbClic(list[idPlayList]); //chaque fois getplaylist, nbClic++
+        incrementerNbClic(list[idPlayList]);
         return list[idPlayList];
     }
 }
@@ -70,7 +70,6 @@ var getPlayList = function (idPlayList) {
 var getPlayListbyUsername = function (nomCreateur) {
     if (typeof list[nomCreateur] === 'undefined') return {};
     else {
-        //   incrementerNbClic(list[nomCreateur]); //chaque fois getplaylist, nbClic++
         return list[nomCreateur];
     }
 }
@@ -94,21 +93,21 @@ var searchPlayList = function (nomPlaylist, nomCreateur, style) {
     }
     if (nomPlaylist) {
         resPlayLists = resPlayLists.filter(playList => {
-            if (playList.nomPlayList.indexOf(nomPlaylist) !== -1) {
+            if (playList.nomPlayList.toUpperCase().indexOf(nomPlaylist.toUpperCase()) !== -1) {
                 return true
             }
         })
     }
     if (nomCreateur) {
         resPlayLists = resPlayLists.filter(playList => {
-            if (playList.nomCreateur.indexOf(nomCreateur) !== -1) {
+            if (playList.nomCreateur.toUpperCase().indexOf(nomCreateur.toUpperCase()) !== -1) {
                 return true
             }
         })
     }
     if (style) {
         resPlayLists = resPlayLists.filter(playList => {
-            if (playList.caractere.indexOf(style) !== -1) {
+            if (playList.caractere.toUpperCase().indexOf(style.toUpperCase()) !== -1) {
                 return true
             }
         })
