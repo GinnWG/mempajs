@@ -9,6 +9,21 @@ var idc = 0;
 var listU = [];
 let listM = [];
 
+// Function verify UserName Exist
+var estExist = function (nomUser) {
+    const listU = metierUser.listerUser();
+    for (let i = 0; i < listU.length; i++) {
+        if (nomUser === listU[i].nomUser)
+            return true;
+    }
+    return false;
+}
+
+// Function de la verification
+var estPresent = function (input) {
+    return input !== undefined;
+}
+
 //Constructor pour la version 1, nomPlayliste, nomCreateur, listMorceau => "creer une playliste et proposer des titres"
 function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
     this.idPlayList = idPlayList;
@@ -22,14 +37,6 @@ function PlayList(nomPlayList, nomCreateur, caractere, idPlayList) {
     this.datemisajour = new Date();
 }
 
-// get idPlayList just of IDPlaylist
-/*
-var getID = function (playlist) {
-    return playlist.idPlayList;
-}
-
- */
-
 //ajouter PlayList version 1
 var ajouterPlayList = function (playlist) {
     let idPlayList;
@@ -37,8 +44,12 @@ var ajouterPlayList = function (playlist) {
     idPlayList = idc;
     idc++;
     list[list.length] = new PlayList(playlist.nomPlayList, playlist.nomCreateur, playlist.caractere, idPlayList);
-    return list[idPlayList];
 
+    if (!estExist(playlist.nomCreateur)) {
+        // create User
+        metierUser.ajouterUserbyName(playlist.nomCreateur);
+    }
+    return list[idPlayList];
 }
 
 //incrementer nbClic
@@ -147,20 +158,6 @@ var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
 }
  */
 
-// Function verify UserName Exist
-var estExist = function (nomUser) {
-    const listU = metierUser.listerUser();
-    for (let i = 0; i < listU.length; i++) {
-        if (nomUser === listU[i].nomUser)
-            return true;
-    }
-    return false;
-}
-
-// Function de la verification
-var estPresent = function (input) {
-    return input !== undefined;
-}
 
 // ajouter un Morceau et un Contributeur dans la Playlist
 var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
@@ -177,115 +174,6 @@ var ajouterMorcerauInPlayList = function (idPlaylist, titre) {
         }
     }
 }
-/*
-// ajouter un User dans la Playlist
-var ajouterUserInPlayList = function (idPlaylist, nomUser) {
-    // vérifie qu'il n'existe pas déjà
-    if (estPresent(nomUser)){
-        if (!estExist(nomUser))
-            // crée User
-            metierUser.ajouterUserbyName(nomUser);
-            // l'ajoute a la list User
-            // metierUser.listerUser().push(nomUser);
-            // on renvoie vrai
-            // return true;
-
-        let position = getposition(idPlaylist);
-        if (position !== -1) {
-            // console.log(nomUser);
-            // console.log(titre);
-           // list[position].listMorceau.push(titre);
-             list[position].listContributeur.push(nomUser)
-            return list[position];
-        }
-    }
-}
-*/
-
-/*
-// Update PlayList
-var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre, idMusic) {
-    // vérifie qu'il n'existe pas déjà
-    let position = getposition(idPlaylist);
-    let i = 0;
-    let inlist = false;
-    let inlistM = false;
-
-    if (estPresent(nomUser) && estPresent(titre)) {
-        console.log('test de validation');
-        if (!estExist(nomUser)) {
-            // create User
-            metierUser.ajouterUserbyName(nomUser);
-            while (position !== -1 && i < list[idPlaylist].listContributeur.length && !inlist) {
-
-                if (list[idPlaylist].listContributeur[i] === nomUser) {
-                    inlist = true;
-                }
-                i++;
-            }
-            if (!inlist && position !== -1) {
-                list[position].listContributeur.push(nomUser);
-                //ajoute Morceau
-                i = 0;
-                while (position !== -1 && i < list[idPlaylist].idMorceau.length && !inlistM) {
-                    console.log('idMorceau' + list[idPlaylist].idMorceau[i] + '   Music' + titre);
-                    if (idMusic === list[idPlaylist].idMorceau[i]) {
-                        console.log('found the same');
-                        inlistM = true;
-                    }
-                    i++;
-                }
-                if (position !== -1 && !inlistM) {
-                    list[position].listMorceau.push(titre);
-                    list[position].idMorceau.push(idMusic);
-                }
-            }
-        } else {
-            while (position !== -1 && i < list[idPlaylist].listContributeur.length && !inlist) {
-
-                if (list[idPlaylist].listContributeur[i] === nomUser) {
-                    inlist = true;
-                }
-                i++;
-            }
-            if (!inlist && position !== -1) {
-                list[position].listContributeur.push(nomUser);
-            }
-            //ajoute Morceau
-            i = 0;
-            while (position !== -1 && i < list[idPlaylist].idMorceau.length && !inlistM) {
-                console.log(list[idPlaylist].idMorceau[i] + ' ' + titre);
-                if (idMusic === list[idPlaylist].idMorceau[i]) {
-                    console.log('found the same');
-                    inlistM = true;
-                }
-                i++;
-            }
-            if (position !== -1 && !inlistM) {
-                list[position].listMorceau.push(titre);
-                list[position].idMorceau.push(idMusic);
-            }
-        }
-        //ajoute Morceau
-        /*i = 0;
-        while (position !== -1 && i < list[idPlaylist].idMorceau.length && !inlistM) {
-            console.log(list[idPlaylist].idMorceau[i] + ' ' + titre);
-            if (idMusic === list[idPlaylist].idMorceau[i]) {
-                console.log('found the same');
-                inlistM = true;
-            }
-            i++;
-        }
-        if (position !== -1 && !inlistM) {
-            list[position].listMorceau.push(titre);
-            list[position].idMorceau.push(idMusic);
-        }*//*删除它
-        return list[position];
-    }
-
-    return -1;
-}
-*/
 
 // Get a PlayList by creator
 var getPlayListByCreateur = function (idUser) {
@@ -316,20 +204,8 @@ var getPlayListByStyle = function (caractere) {
 // Get liste de tous les Morceaux
 listM = metierMorceau.listerMorceau();
 
-exports.ajouterPlayList = ajouterPlayList;
-exports.getPlayList = getPlayList;
-exports.listerPlayList = listerPlayList;
-exports.incrementerNbClic = incrementerNbClic;
-exports.searchPlayList = searchPlayList;
-exports.getPlayListbyUsername = getPlayListbyUsername;
-exports.supprimerPlayList = supprimerPlayList;
-//exports.ajouterUserInPlayList = ajouterUserInPlayList;
-//exports.ajouterMorcerauInPlayList = ajouterMorcerauInPlayList;
 
-exports.getPlayListByCreateur = getPlayListByCreateur;
-exports.getPlayListByStyle = getPlayListByStyle;
-exports.estPresent = estPresent;
-
+// Edit PlayList
 var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre, idMusic) {
     // vérifie qu'il n'existe pas déjà
     let position = getposition(idPlaylist);
@@ -395,4 +271,15 @@ var ajouterUserMorceauInPl = function (idPlaylist, nomUser, titre, idMusic) {
     }
     return -1;
 }
+
+exports.ajouterPlayList = ajouterPlayList;
+exports.getPlayList = getPlayList;
+exports.listerPlayList = listerPlayList;
+exports.incrementerNbClic = incrementerNbClic;
+exports.searchPlayList = searchPlayList;
+exports.getPlayListbyUsername = getPlayListbyUsername;
+exports.supprimerPlayList = supprimerPlayList;
+exports.getPlayListByCreateur = getPlayListByCreateur;
+exports.getPlayListByStyle = getPlayListByStyle;
+exports.estPresent = estPresent;
 exports.ajouterUserMorceauInPl = ajouterUserMorceauInPl;
